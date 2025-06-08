@@ -129,7 +129,7 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
 
   return (
     <>
-      <div className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-40">
+      <div className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-20">
         {page===-1 && (
           <div
             className={`w-70 h-100 rounded shadow-md cursor-pointer border-2 flex flex-col items-center justify-center text-white text-center p-1 hover:scale-110 scale-105 transition`} 
@@ -152,7 +152,7 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
       
       {page!==-1 && (
         <>
-          <AnimatePresence>
+          {/* <AnimatePresence>
               <motion.div
                 className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-40 p-3"
                 initial={{ opacity: 0 }}
@@ -168,6 +168,16 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
                   animate={{ rotateY: 0 }}
                   exit={{ rotateY: 90 }}
                   transition={{ duration: 0.6 }}
+                > */}
+
+              <div
+                className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-20 p-3"
+                onClick={() => setIsOpen(false)}
+              >
+                <div
+                  className="bg-amber-50 w-[620px] h-[460px] rounded shadow-lg p-6 relative border-8 flex items-center justify-center"
+                  style={{ borderColor: book.colour }}
+                  onClick={(e) => e.stopPropagation()}
                 >
 
                   <img
@@ -215,9 +225,11 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
                     <div className="flex-grow"></div>
                     {(page < pages.length-1 || (isSmallScreen && (pagePair < pages.length-1 || side < 1))) && <button onClick={handleNext}><ChevronRight /></button>}
                   </div>
-                </motion.div>
+                </div>
+              </div>
+                {/* </motion.div>
               </motion.div>
-          </AnimatePresence>
+          </AnimatePresence> */}
 
           <style jsx>{`
             .lined-paper {
