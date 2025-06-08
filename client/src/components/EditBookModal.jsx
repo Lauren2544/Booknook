@@ -9,6 +9,17 @@ import axios from 'axios';
 export function EditBookModal({ book, onClose, onDeleteBook }) {
   const [page, setPage] = useState(-1); 
 
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsSmallScreen(window.innerWidth < 769); // example breakpoint for "small"
+    };
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+    return () => window.removeEventListener('resize', checkScreen);
+  }, []);
+
   useEffect(() => {
       window.scrollTo({ top: 0 });
       document.body.classList.add('overflow-hidden');
@@ -16,6 +27,16 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
         document.body.classList.remove('overflow-hidden');
       };
     }, []);
+
+  /* 
+  calculation for small screen pages 
+  page = 0 → pages[0][0] (left of first pair)
+  page = 1 → pages[0][1] (right of first pair)
+  page = 2 → pages[1][0] (left of second pair)
+  page = 3 → pages[1][1] (right of second pair)
+  */
+  const pagePair = Math.floor(page / 2);
+  const side = page % 2;
 
   const pages = [
     [
@@ -42,9 +63,13 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
             {colorOptions.map((c, i) => (
               <button
                 key={i}
+                disabled /* edit isn't implemneted yet */
                 type="button"
                 className={'w-10 h-8 border-5 rounded scale-90'}
-                style={{ backgroundColor: c }}
+                style={{
+                    backgroundColor: c,
+                    ...(book.colour === c && { outline: '4px auto -webkit-focus-ring-color' })
+                  }}
               />
             ))}
           </div>
@@ -55,8 +80,12 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
             {flowerImageOptions.map((c, i) => (
               <div
                 key={i}
+                disabled /* edit isn't implemneted yet */
                 className="w-14 h-10 rounded scale-90 overflow-hidden"
-                style={{ background: book.colour }}
+                style={{
+                    background: book.colour,
+                    ...(book.image === c && { outline: '4px auto -webkit-focus-ring-color' })
+                  }}
               >
                 <img
                   src={c}
@@ -125,14 +154,14 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
         <>
           <AnimatePresence>
               <motion.div
-                className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-40"
+                className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-40 p-3"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsOpen(false)}
               >
                 <motion.div
-                  className="bg-amber-50 w-[620px] h-[440px] rounded shadow-lg p-6 relative border-8 flex items-center justify-center"
+                  className="bg-amber-50 w-[620px] h-[460px] rounded shadow-lg p-6 relative border-8 flex items-center justify-center"
                   style={{ borderColor: book.colour, transformStyle: 'preserve-3d'}}
                   onClick={(e) => e.stopPropagation()}
                   initial={{ rotateY: 90 }}
@@ -153,25 +182,38 @@ export function EditBookModal({ book, onClose, onDeleteBook }) {
                       onClose();
                     }}
                   >Close</button>
-
-                  <>
-                    <div className="w-1/2 border-r border-dashed border-gray-400 px-5 py-1 bg-white lined-paper h-full pt-6">
+                  
+                  {isSmallScreen ? (
+                    // Show only one page full width on small screen
+                    <div className="w-full bg-white lined-paper h-full pt-12 px-5">
                       <h2 className="text-lg font-serif font-bold text-center">{book.title}</h2>
                       <div className="italic font-serif text-center text-gray-600 mb-5">
                         By {book.author?.trim() ? book.author : 'an unknown author'}
                       </div>
-                      {pages[page][0]}
+                      {
+                      pages[pagePair][side]}
                     </div>
+                  ) : (
+                    // Two pages side-by-side for larger screens
+                    <>
+                      <div className="w-1/2 border-r border-dashed border-gray-400 px-5 py-1 bg-white lined-paper h-full pt-6">
+                        <h2 className="text-lg font-serif font-bold text-center">{book.title}</h2>
+                        <div className="italic font-serif text-center text-gray-600 mb-5">
+                          By {book.author?.trim() ? book.author : 'an unknown author'}
+                        </div>
+                        {pages[page > pages.length-1 ? 1: page][0]} {/* Bit of dumb logic in place so that when going from little screen (phone) where page can be > pages.length-1  puts page back to < pages.length-1  */}
+                      </div>
 
-                    <div className="w-1/2 px-4 py-2 bg-white lined-paper h-full pt-7">
-                      {pages[page][1]}
-                    </div>
-                  </>
+                      <div className="w-1/2 px-4 py-2 bg-white lined-paper h-full pt-7">
+                        {pages[page > pages.length-1 ? 1: page][1]} {/* Bit of dumb logic in place so that when going from little screen (phone) where page can be > pages.length-1  puts page back to < pages.length-1  */}
+                      </div>
+                    </>
+                  )}
 
                   <div className="absolute bottom-3.5 left-0 right-0 flex justify-between text-white px-3">
                     {page >= 0 && <button onClick={handlePrev}><ChevronLeft /></button>}
                     <div className="flex-grow"></div>
-                    {page < pages.length-1 && <button onClick={handleNext}><ChevronRight /></button>}
+                    {(page < pages.length-1 || (isSmallScreen && (pagePair < pages.length-1 || side < 1))) && <button onClick={handleNext}><ChevronRight /></button>}
                   </div>
                 </motion.div>
               </motion.div>

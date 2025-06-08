@@ -58,7 +58,7 @@ export function AddBookModal({ year, onClose, onAddBook }) {
   };
 
   return (
-    <div className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center pt-12">
+    <div className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-start justify-center p-2 pt-12">
       <motion.div
         initial={{ scale: 0.8 }}
         animate={{ scale: 1 }}
@@ -132,7 +132,10 @@ export function AddBookModal({ year, onClose, onAddBook }) {
                   type="button"
                   onClick={() => setColour(c)}
                   className={`w-8 h-8 rounded-full border-2 ${colour === c ? 'border-black' : 'border-white'}`}
-                  style={{ backgroundColor: c }}
+                  style={{
+                    backgroundColor: c,
+                    ...(colour === c && { outline: '4px auto -webkit-focus-ring-color' })
+                  }}
                 />
               ))}
             </div>
@@ -143,17 +146,21 @@ export function AddBookModal({ year, onClose, onAddBook }) {
             <label className="block text-lg text-dark-brown mb-1">Spine Image</label>
             <div className="flex flex-wrap gap-1 pb-2">
             {flowerImageOptions.map((c, i) => (
-              <div
+              <button
                 key={i}
+                type="button"
                 className="w-14 h-10 rounded scale-90 overflow-hidden"
-                style={{ background: colour }}
+                style={{
+                  background: colour,
+                  ...(image === c && { outline: '4px auto -webkit-focus-ring-color' })
+                }}
                 onClick={() => setImage(c)}
               >
                 <img
                   src={c}
                   className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
                 />
-              </div>
+              </button>
             ))}
           </div>
           </div>

@@ -1,30 +1,59 @@
-It rained the past two weekends in Montreal, so I decided to make a silly little app called Booknook for any readers out there that want an app like goodreads, with less functionalities, but is prettier :) to track the books you read each year. You can find the app at laurenrowe.xyz, I also made this project open source on GitHub if you want to clone it, or make suggestions/improvements at https://github.com/Lauren2544/Booknook
+## Booknook
 
-Todo 
-- [x] add cute little plant image 
-- [x] make book title verticle 
-- [x] make a default state (when no books added): have a shelf with a add button and no date always (bottom shelf)
-- [x] fix the problem with the year
-- [x] make "add book" look like a book (title and author gets added to front, you can also add images to the front, and it will add the image to the spine as well, then inside date read, rating, quotes, looking like a book with lined lines and little arrows at the bottom to switch pages to add more notes or quotes)
-- [x] fix login redirection issue 
-- [x] make the add button smaller 
-- [x] proper shelves 
-- [x] no verticle scroll on books 
-- [x] no weird scroll (on add/edit)
-- [x] add delete book button 
-- [x] fix signup redirection issue 
-- [x] add a logout button 
-- [x] make the books be able to have a nice image on the front/spine 
-- [x] make bookshelf fixed width
-- [x] make default shelve have plants 
-- [x] get app icon
-- deploy 
-- [x] get domain name 
+It rained the past two weekends in Montreal, so I built Booknook — a simple and prettier alternative to Goodreads for tracking the books you read each year.
 
-Future Todos
-- make the edit api request 
-- make responsive for phones
-- add login with google 
-- add import from goodreads option 
-- fix how multiple quotes are displayed 
-- add isSelected field for the spine colour and img 
+---
+
+## Getting Started
+
+The project is open source, so feel free to clone the repo, explore the code, and submit suggestions or pull requests! Any help or feedback is appreciated, I’d love to hear from you!
+
+---
+
+## Features
+
+- Track your reading history by year, visually displayed on bookshelf-like shelves
+- Customizable images on book covers and spines
+- Cute plant decorations for empty shelves to keep things cozy
+- User authentication with login, signup, and logout
+- Responsive design for both desktop and phone
+- Abiility to add, view, and delete books
+
+---
+
+Thanks for checking out Booknook! Happy reading 📚🌿
+
+---
+
+## Todo (Completed)
+
+- [x] Add cute little plant images
+- [x] Make book titles vertical on spines
+- [x] Create a default state for when no books are added
+- [x] Make the "select book" UI look like a book
+- [x] Fix login redirection issues
+- [x] Fix signup redirection issue
+- [x] Make the add button smaller
+- [x] Implement proper shelves
+- [x] Remove vertical scrolling on books
+- [x] Add delete book button
+- [x] Add logout button
+- [x] Add nice images on the front/spine of books
+- [x] Display plants on default shelves when empty
+- [x] Create app icon
+- [x] Deploy the app
+- [x] Add isSelected field for spine color and image
+- [x] Make responsive for phones
+
+---
+
+## Future Todo
+
+- Implement edit API request
+- Add login with Google authentication
+- Add import option from Goodreads  
+  Useful links:  
+  - [Goodreads import guide](https://www.goodreads.com/review/import)  
+  - [Goodreads import/export help](https://help.goodreads.com/s/article/How-do-I-import-or-export-my-books-1553870934590)
+- Add filter to display books by genre (literary fiction, fantasy, romance, non-fiction, thriller)
+

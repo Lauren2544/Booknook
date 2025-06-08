@@ -6,8 +6,6 @@ import { Shelf } from "./Shelf";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-// import goodreads https://www.goodreads.com/review/import
-//https://help.goodreads.com/s/article/How-do-I-import-or-export-my-books-1553870934590
 
 export default function BookshelfApp() {
   const [books, setBooks] = useState([]);
@@ -58,17 +56,10 @@ export default function BookshelfApp() {
   if (loading) return <div></div>;
 
   return (
-    <div className="min-h-screen w-200 bg-[url('/background-cozy.jpg')] bg-cover bg-fixed text-gray-800">
+    <div className="min-h-screen w-95 md:w-200 lg:w-200 bg-cover bg-fixed text-gray-800">
       <div className="backdrop-blur-sm min-h-screen bg-white/80 px-4 py-2">
         {/* Navigation Header */}
         <div className="flex justify-end space-x-4">
-          {/* Todo - add import from goodreads option  */}
-          {/* <span 
-            onClick={handleImport} 
-            className="text-black underline cursor-pointer"
-          >
-            Import from Goodreads
-          </span> */}
           <span 
             onClick={handleLogout} 
             className="text-black underline cursor-pointer"
